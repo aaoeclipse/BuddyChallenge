@@ -20,6 +20,8 @@ To connect people and their relationship with themselves to become better versio
 ## Diagrams
 <div style="display: flex; justify-content: center;">
 <img src="img/Untitled%20Diagram-Use%20Case.jpg" alt="use case" /></div>
-
+<br>
+<div style="display: flex; justify-content: center;">
+<img src="img/UML_Database.jpg" alt="uml database diagram" /></div>
 ##  Authors
 Santiago Paiz - https://github.com/aaoeclipse - https://santiagopaiz.com
