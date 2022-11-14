@@ -19,6 +19,6 @@ class Challenge extends Model
 
     public function owner()
     {
-        $this->hasOne('App/Models/User');
+        $this->belongsTo('App/Models/User');
     }
 }
