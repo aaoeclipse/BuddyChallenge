@@ -22,6 +22,7 @@ return new class extends Migration
 
             $table->integer('points')->default(0);
             $table->boolean('accepted')->default(false);
+            $table->timestamps();
         });
     }
 
