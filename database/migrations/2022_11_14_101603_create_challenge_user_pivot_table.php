@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('challenge_user', function (Blueprint $table) {
-            $table->integer('user_id')->unsigned()->index();
+            $table->unsignedBigInteger('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('challenge_id')->unsigned()->index();
+            $table->unsignedBigInteger('challenge_id')->unsigned()->index();
             $table->foreign('challenge_id')->references('id')->on('challenges')->onDelete('cascade');
             $table->primary(['user_id', 'challenge_id']);
 

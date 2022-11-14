@@ -19,7 +19,7 @@ class Challenge extends Model
 
     public function owner()
     {
-        $this->belongsTo(User::class);
+        $this->belongsTo(User::class, 'owner_id');
     }
 
     public function users()
