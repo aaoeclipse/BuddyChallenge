@@ -49,11 +49,11 @@ class User extends Authenticatable
 
     public function own_challenges()
     {
-        return $this->hasMany(Challenge::class);
+        return $this->hasMany(Challenge::class, 'owner_id');
     }
 
     public function challenges()
     {
-        return $this->hasMany(ChallengeUser::class);
+        return $this->belongsToMany(Challenge::class)->withPivot(['points', 'accepted']);
     }
 }
