@@ -47,8 +47,13 @@ class User extends Authenticatable
         return $this->hasMany('\App\Models\Workout');
     }
 
-    public function challenges()
+    public function own_challenges()
     {
         return $this->hasMany('\App\Models\Challenge');
+    }
+
+    public function challenges()
+    {
+        return $this->hasMany('\App\Models\ChallengeUser');
     }
 }

@@ -21,4 +21,9 @@ class Challenge extends Model
     {
         $this->belongsTo('App/Models/User');
     }
+
+    public function users()
+    {
+        $this->belongsToMany('App/Models/User')->withPivot('foo', 'bar');
+    }
 }
