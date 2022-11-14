@@ -16,4 +16,9 @@ class Workout extends Model
         'type',
         'owner_id',
     ];
+
+    public function owner()
+    {
+        $this->hasOne('App/Models/User');
+    }
 }

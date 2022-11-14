@@ -14,6 +14,11 @@ class Challenge extends Model
         'ending_date',
         'title',
         'description',
-        'created_by',
+        'owner_id',
     ];
+
+    public function owner()
+    {
+        $this->hasOne('App/Models/User');
+    }
 }

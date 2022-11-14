@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('title');
             // diff from diagram, since string makes more sense for a mvp
             $table->string('description')->nullable();
-            $table->foreignIdFor(User::class, 'created_by');
+            $table->foreignIdFor(User::class, 'owner_id');
         });
     }
 
