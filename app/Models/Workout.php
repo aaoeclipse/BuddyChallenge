@@ -19,6 +19,6 @@ class Workout extends Model
 
     public function owner()
     {
-        $this->belongsTo('App/Models/User');
+        $this->belongsTo(User::class);
     }
 }

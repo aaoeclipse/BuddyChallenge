@@ -19,11 +19,11 @@ class Challenge extends Model
 
     public function owner()
     {
-        $this->belongsTo('App/Models/User');
+        $this->belongsTo(User::class);
     }
 
     public function users()
     {
-        $this->belongsToMany('App/Models/User')->withPivot('foo', 'bar');
+        // $this->belongsToMany('App/Models/User')->withPivot('foo', 'bar');
     }
 }
