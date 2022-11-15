@@ -41,11 +41,10 @@ class ChallengeTest extends TestCase
 
     public function test_get_specific_challenges()
     {
-        $challenge = Challenge::factory(1);
+        $user = User::where('email', 'santiago.paiz@gmail.com')->first();
+        $challenge = $user->own_challenges->first();
 
-        $challenge->save();
-
-        $response = $this->get('/challenge/1');
+        $response = $this->actingAs($user)->get('/challenge/'.$challenge['id']);
 
         $response->assertStatus(200);
     }

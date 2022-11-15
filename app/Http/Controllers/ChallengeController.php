@@ -72,7 +72,9 @@ class ChallengeController extends Controller
      */
     public function show($id)
     {
-        // return view('create_challenge');
+        $challenge = Challenge::find($id);
+
+        return view('challenges/challenge_detail', ['challenge' => $challenge]);
     }
 
     /**
@@ -83,7 +85,9 @@ class ChallengeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $challenge = Challenge::find($id);
+
+        return view('challenges/challenge_detail', ['challenge' => $challenge]);
     }
 
     /**
@@ -93,9 +97,15 @@ class ChallengeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Challenge $id)
     {
-        //
+        $challenge = Challenge::create([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'starting_date' => $request->input('starting_date'),
+            'ending_date' => $request->input('ending_date'),
+            'owner_id' => Auth::id(),
+        ]);
     }
 
     /**
