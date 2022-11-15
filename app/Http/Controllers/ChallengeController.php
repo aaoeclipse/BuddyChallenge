@@ -18,7 +18,7 @@ class ChallengeController extends Controller
     {
         $user = Auth::user();
 
-        return view('challenges', ['challenges' => $user->own_challenges]);
+        return view('challenges/challenges', ['challenges' => $user->own_challenges]);
     }
 
     /**
