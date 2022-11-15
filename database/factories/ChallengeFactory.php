@@ -22,7 +22,7 @@ class ChallengeFactory extends Factory
             'ending_date' => fake()->date(),
             'title' => fake()->name(),
             'description' => fake()->text(),
-            'owner_id' => User::class::factory(),
+            // 'owner_id' => User::class::factory(),
         ];
     }
 }
