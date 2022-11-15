@@ -11,6 +11,12 @@ class ChallengeTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->seed();
+    }
+
     /**
      * A basic feature test example.
      *
@@ -26,11 +32,11 @@ class ChallengeTest extends TestCase
 
     public function test_get_all_challenges()
     {
-        $challenge = Challenge::factory(2);
+        $user = User::where('email', 'santiago.paiz@gmail.com')->first();
 
-        $response = $this->get('/challenge');
+        $response = $this->actingAs($user)->get('/challenge');
 
-        $response->assertStatus(200);
+        $response->assertSee('Starting');
     }
 
     public function test_get_specific_challenges()
@@ -49,10 +55,9 @@ class ChallengeTest extends TestCase
         $user = User::factory()->create();
         $user = User::find($user->id);
 
-        $response = $this->actingAs($user)->get('/challenge');
+        $response = $this->actingAs($user)->post('/challenge', ['name' => 'Sally']);
 
-        $response->assertStatus(200);
-        // $this->assertDatabaseHas('challenges', $response->challenge->id);
+        $response->assertStatus(201);
     }
 
     public function test_delete_challenge()
