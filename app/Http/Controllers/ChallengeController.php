@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Challenge;
+use App\Models\ChallengeUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -45,12 +46,19 @@ class ChallengeController extends Controller
             'ending_date' => 'required',
         ]);
 
-        Challenge::create([
+        $challenge = Challenge::create([
             'title' => $request->input('title'),
             'description' => $request->input('description'),
             'starting_date' => $request->input('starting_date'),
             'ending_date' => $request->input('ending_date'),
             'owner_id' => Auth::id(),
+        ]);
+
+        // The owner must also have to be in the pivot table
+        ChallengeUser::create([
+            'user_id' => Auth::id(),
+            'challenge_id' => $challenge->id,
+            'accepted' => true, // must be true since he created the challenge
         ]);
 
         return redirect((route('dashboard')));
