@@ -20,7 +20,8 @@ class ChallengeTest extends TestCase
     {
         $response = $this->get('/challenge');
 
-        $response->assertStatus(200);
+        // If not logged in it should redirect
+        $response->assertStatus(302);
     }
 
     public function test_get_all_challenges()
