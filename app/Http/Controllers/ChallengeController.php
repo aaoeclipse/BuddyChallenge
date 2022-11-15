@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Challenge;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,7 +38,22 @@ class ChallengeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|min:2|max:255',
+            'description' => 'required|min:5|max:1024',
+            'starting_date' => 'required',
+            'ending_date' => 'required',
+        ]);
+
+        Challenge::create([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'starting_date' => $request->input('starting_date'),
+            'ending_date' => $request->input('ending_date'),
+            'owner_id' => Auth::id(),
+        ]);
+
+        return redirect((route('dashboard')));
     }
 
     /**
