@@ -28,7 +28,7 @@ class ChallengeController extends Controller
      */
     public function create()
     {
-        //
+        return view('challenges/create_challenge');
     }
 
     /**
@@ -72,7 +72,7 @@ class ChallengeController extends Controller
      */
     public function show($id)
     {
-        //
+        // return view('create_challenge');
     }
 
     /**
