@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ChallengeController extends Controller
 {
@@ -13,7 +14,9 @@ class ChallengeController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+
+        return view('challenges', ['challenges' => $user->own_challenges]);
     }
 
     /**
