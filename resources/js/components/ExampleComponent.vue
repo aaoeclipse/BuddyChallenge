@@ -1,12 +1,12 @@
 <template>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
+    <div class="w-full bg-blue-700 text-white p-5 rounded min-h-[50vh] flex flex-col">
+        <div class="">
+            <div class="">
+                <div class="">
                     <div class="panel-heading">Example Component</div>
 
                     <div class="panel-body">
-                        I'm an example {{hey}}!
+                        I'm an example {{test}}!
                     </div>
                 </div>
             </div>
