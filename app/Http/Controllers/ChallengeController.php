@@ -61,7 +61,7 @@ class ChallengeController extends Controller
             'accepted' => true, // must be true since he created the challenge
         ]);
 
-        return redirect((route('dashboard')));
+        return redirect((route('home')));
     }
 
     /**
