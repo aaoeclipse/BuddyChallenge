@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-// PUBLIC ROUTES
+// ==== PUBLIC ROUTES ====
 
 Route::get('/', function () {
     return view('welcome');
@@ -11,6 +11,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-// PRIVATE ROUTES
+// ==== PRIVATE ROUTES ====
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('challenge', App\Http\Controllers\ChallengeController::class)->middleware('auth');
