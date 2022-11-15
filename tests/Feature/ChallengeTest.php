@@ -52,12 +52,29 @@ class ChallengeTest extends TestCase
 
     public function test_user_create_challenge()
     {
-        $user = User::factory()->create();
-        $user = User::find($user->id);
+        $user = User::where('email', 'santiago.paiz@gmail.com')->first();
 
-        $response = $this->actingAs($user)->post('/challenge', ['name' => 'Sally']);
+        $challenge = new Challenge();
+        $challenge->starting_date = now();
+        $challenge->ending_date = now()->addDay();
+        $challenge->title = 'New Title';
+        $challenge->description = 'New Description';
+        $challenge->owner_id = $user->id;
 
-        $response->assertStatus(201);
+        $response = $this->actingAs($user)->post('/challenge', [
+            'title' => $challenge->title,
+            'description' => $challenge->description,
+            'starting_date' => $challenge->starting_date,
+            'ending_date' => $challenge->ending_date,
+
+        ]);
+        // Make sure it redirects
+        $response->assertStatus(302);
+        // Make sure the challenge was created in the db
+        $this->assertDatabaseHas('challenges', ['title' => 'New Title']);
+        // Make sure the challenge_user was correctly created
+        $challenge = Challenge::where('title', 'New Title')->first();
+        $this->assertDatabaseHas('challenge_user', ['user_id' => $user->id, 'challenge_id' => $challenge->id]);
     }
 
     public function test_delete_challenge()
