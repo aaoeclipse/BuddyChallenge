@@ -78,13 +78,11 @@ class ChallengeTest extends TestCase
 
     public function test_delete_challenge()
     {
-        $challenge = Challenge::where('challenges', ['title' => 'Challenge Test'])->first();
+        $user = User::where('email', 'santiago.paiz@gmail.com')->first();
+        $challenge = $user->own_challenges->first();
+        $this->assertDatabaseHas('challenges', ['id' => $challenge->id]);
 
-        if ($challenge) {
-            $challenge->delete();
-            $this->assertTrue(true);
-        }
-
-        $this->assertDatabaseMissing('challenges', ['title' => 'Challenge Test']);
+        $this->actingAs($user)->delete('/challenge/'.$challenge['id']);
+        $this->assertDatabaseMissing('challenges', ['id' => $challenge->id]);
     }
 }
