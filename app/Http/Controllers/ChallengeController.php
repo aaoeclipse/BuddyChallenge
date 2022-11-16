@@ -95,15 +95,23 @@ class ChallengeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Challenge $id)
+    public function update(Request $request, int $id)
     {
-        $challenge = Challenge::create([
-            'title' => $request->input('title'),
-            'description' => $request->input('description'),
-            'starting_date' => $request->input('starting_date'),
-            'ending_date' => $request->input('ending_date'),
-            'owner_id' => Auth::id(),
+        $validated = $request->validate([
+            'title' => 'required|min:2|max:255',
+            'description' => 'required|min:5|max:1024',
+            'starting_date' => 'required',
+            'ending_date' => 'required',
         ]);
+
+        $challenge = Auth::user()->own_challenges->find($id);
+
+        $challenge->title = $request->input('title');
+        $challenge->description = $request->input('description');
+        $challenge->starting_date = $request->input('starting_date');
+        $challenge->ending_date = $request->input('ending_date');
+
+        $challenge->save();
     }
 
     /**
