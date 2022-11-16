@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ChallengeProcess;
 use App\Models\Challenge;
-use App\Models\ChallengeUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -55,11 +55,7 @@ class ChallengeController extends Controller
         ]);
 
         // The owner must also have to be in the pivot table
-        ChallengeUser::create([
-            'user_id' => Auth::id(),
-            'challenge_id' => $challenge->id,
-            'accepted' => true, // must be true since he created the challenge
-        ]);
+        ChallengeProcess::dispatch($challenge, Auth::id());
 
         return redirect((route('home')));
     }
