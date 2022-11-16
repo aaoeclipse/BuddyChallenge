@@ -27,6 +27,7 @@ class UserTest extends TestCase
         ]);
 
         $response->assertRedirect('/home');
+        $this->assertDatabaseHas('users', ['email' => 'ricksanchez@gmail.com']);
     }
 
     public function test_delete_user()
