@@ -69,7 +69,7 @@ class ChallengeController extends Controller
     public function show($id)
     {
         $user = Auth::user();
-        $challenge = $user->own_challenges->findOrFail($id);
+        $challenge = $user->own_challenges->find($id);
 
         return view('challenges/challenge_detail', ['challenge' => $challenge]);
     }
@@ -83,7 +83,7 @@ class ChallengeController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
-        $challenge = $user->own_challenges->findOrFail($id);
+        $challenge = $user->own_challenges->find($id);
 
         return view('challenges/challenge_detail', ['challenge' => $challenge]);
     }
@@ -104,7 +104,7 @@ class ChallengeController extends Controller
             'ending_date' => 'required',
         ]);
 
-        $challenge = Auth::user()->own_challenges->findOrFail($id);
+        $challenge = Auth::user()->own_challenges->find($id);
 
         $challenge->title = $request->input('title');
         $challenge->description = $request->input('description');
@@ -123,7 +123,7 @@ class ChallengeController extends Controller
     public function destroy($id)
     {
         $user = Auth::user();
-        $challenge = $user->own_challenges->findOrFail($id);
+        $challenge = $user->own_challenges->find($id);
         if ($challenge) {
             $challenge->delete();
         }
