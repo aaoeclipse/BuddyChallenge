@@ -21,7 +21,22 @@
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="flex justify-around h-12 bg-blue-500 items-center text-white">
+
+            <div>
+                <span>icon</span>
+                <span>{{ config('app.name', 'Laravel') }}</span>
+            </div>
+
+            <ul class="flex gap-x-3 items-center ">
+                <li class="h-full">one</li>
+                <li class="h-full">wo</li>
+                {{-- TODO: finish navigation, make it vertical --}}
+                <li class="h-full"><a class="nav-link" href="{{ route('login') }}">test</a></li>
+
+            </ul>
+        </nav>
+        {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -76,7 +91,7 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav> --}}
 
         <main class="py-4">
             @yield('content')
