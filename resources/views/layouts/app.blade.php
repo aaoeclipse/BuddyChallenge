@@ -16,20 +16,19 @@
 
     <!-- Scripts -->
 
-    @vite(['resources/css/app.css', 'resources/sass/app.scss', 'resources/js/app.js'])
+    @vite(['resources/sass/app.scss', 'resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body>
     <div id="app">
         <nav class="flex justify-around h-12 bg-blue-500 items-center text-white">
 
-            <div>
-                <span>icon</span>
+            <div class="flex flex-col items-center text-xl font-bold">
                 <span>{{ config('app.name', 'Laravel') }}</span>
             </div>
 
             <ul class="flex gap-x-3 items-center ">
-                <li class="h-full">one</li>
+                <li class="h-full">Home</li>
                 <li class="h-full">wo</li>
                 {{-- TODO: finish navigation, make it vertical --}}
                 <li class="h-full"><a class="nav-link" href="{{ route('login') }}">test</a></li>
