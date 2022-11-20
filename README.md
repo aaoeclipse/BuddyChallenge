@@ -1,4 +1,6 @@
 # BuddyChallenge
+![Testing](https://github.com/aaoeclipse/BuddyChallenge/actions/workflows/laravel.yml/badge.svg)
+
 <div style="display: flex; justify-content: center; overflow: hidden; margin-bottom: 1rem; align-items: center; gap: 1rem;">
 <img style=" height: 6rem; border-radius: 50px;" src="img/icon.png" alt="icon" />
 <span style="font-size: 1.5rem; font-weight: bold; color: gray;">Challenge yourselves</span>
