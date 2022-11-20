@@ -17,3 +17,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::resource('challenge', App\Http\Controllers\ChallengeController::class)->middleware('auth');
 Route::get('/inviting_friends', [App\Http\Controllers\InviteFriends::class, 'index'])->middleware('auth')->name('inviting_friends');
+Route::post('/inviting_friends', [App\Http\Controllers\InviteFriends::class, 'store'])->middleware('auth')->name('inviting_friends.store');

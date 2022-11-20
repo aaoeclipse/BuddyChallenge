@@ -17,4 +17,9 @@ class InviteFriends extends Controller
 
         return view('challenges/inviting_friends', ['challenge' => $challenge]);
     }
+
+    public function store(Request $request)
+    {
+        dd($request);
+    }
 }
