@@ -70,10 +70,12 @@ class RoutineTest extends TestCase
         // Make sure it redirects
         $response->assertStatus(302);
         // Make sure the routine was created in the db
-        $this->assertDatabaseHas('routines', ['title' => 'New Title']);
-        // Make sure the routine_user was correctly created
-        $routine = routine::where('title', 'New Title')->first();
-        $this->assertDatabaseHas('routine_user', ['user_id' => $this->user->id, 'routine_id' => $routine->id]);
+        $this->assertDatabaseHas('routines', [
+            'workout_id' => $routine->user_id,
+            'user_id' => $routine->workout_id,
+            'challenge_id' => $routine->challenge_id,
+            'day_of_week' => $routine->day_of_week,
+        ]);
     }
 
     public function test_update_routine()
