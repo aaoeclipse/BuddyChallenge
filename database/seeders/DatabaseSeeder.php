@@ -18,23 +18,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // User::factory()->make([
-        //     'name' => 'Santiago Paiz',
-        //     'email' => 'santiago.paiz@gmail.com',
-        //     'email_verified_at' => now(),
-        //     'password' => '$2y$10$XFuN.Xu71tK4fDhzwWoIT.tO71JaoawXcSXe5VyO6KAvigzAsEMRi',
-        //     'remember_token' => null,
-        // ])->save();
-        // User::factory()->make(
-        //     [
-        // 'name' => 'Santiago Paiz',
-        // 'email' => 'santiago.paiz@gmail.com',
-        // 'email_verified_at' => now(),
-        // 'password' => '$2y$10$XFuN.Xu71tK4fDhzwWoIT.tO71JaoawXcSXe5VyO6KAvigzAsEMRi',
-        // 'remember_token' => null,
-        //     ]
-        // )->has(Challenge::factory()->count(3), 'own_challenges');
-
         $posts = Challenge::factory()
             ->count(3)
             ->for(User::factory()->state([
@@ -45,6 +28,22 @@ class DatabaseSeeder extends Seeder
                 'remember_token' => null,
             ]), 'owner')
             ->create();
-        // ChallengeUser::factory(10)->create();
+
+        $user = User::where(['email' => 'santiago.paiz@gmail.com'])->first();
+
+        ChallengeUser::factory()->state([
+            'user_id' => $user->id,
+            'challenge_id' => $posts->first()->id,
+        ])->create();
+        ChallengeUser::factory()->state([
+            'user_id' => $user->id,
+            'challenge_id' => $posts->get(1)->id,
+        ])->create();
+        ChallengeUser::factory()->state([
+            'user_id' => $user->id,
+            'challenge_id' => $posts->get(2)->id,
+        ])->create();
+
+        ChallengeUser::factory(10)->create();
     }
 }
