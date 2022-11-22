@@ -23,18 +23,6 @@ class RoutineTest extends TestCase
         $this->workout = $this->user->workouts->first();
     }
 
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_example()
-    {
-        $response = $this->get('/routine');
-
-        $response->assertStatus(200);
-    }
-
     public function test_get_all_routines()
     {
         $response = $this->actingAs($this->user)->get('/routines');

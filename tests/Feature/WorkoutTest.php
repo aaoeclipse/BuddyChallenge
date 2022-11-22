@@ -17,18 +17,11 @@ class WorkoutTest extends TestCase
         $this->user = User::where('email', 'santiago.paiz@gmail.com')->first();
     }
 
-    public function test_example()
-    {
-        $response = $this->get('/workouts');
-
-        $response->assertStatus(200);
-    }
-
     public function test_get_all_workouts()
     {
-        $response = $this->actingAs($this->user)->get('/workouts');
+        $response = $this->actingAs($this->user)->get('/workout');
 
-        $response->assertSee('Workouts');
+        $response->assertSee('id');
     }
 
     public function test_get_specific_workout()
