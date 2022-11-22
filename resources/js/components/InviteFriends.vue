@@ -1,5 +1,6 @@
 <template>
-    <div class="flex flex-col gap-2">
+    <form @submit.prevent="submit">
+        <div class="flex flex-col gap-2">
         
         <div class="w-full "  v-for="friend in friends_to_invite">
             <label class="text-gray-400" for="email" >email</label>
@@ -26,15 +27,14 @@
         Invite
     </button>
     
+</form>
 
-    <div class="w-full "  v-for="friend in friends_to_invite" :value="friends_to_invite.email">
-        test - 
-        {{friend.email}}
-    </div>
 </template>
 
 <script>
 export default {
+    props: ['data'],
+
     data(){
         return {
             friends_to_invite: [{email: ''}]
@@ -43,7 +43,18 @@ export default {
     methods: {
         add_friend(){
             this.friends_to_invite.push({email: ""})
-        }
+        },
+        submit() {
+            this.errors = {};
+            
+            axios.post('/inviting_friends/submit', {id: this.data, emails: this.friends_to_invite}).then(response => {
+                window.location.href = `/challenge/${this.data}`;
+            }).catch(error => {
+                if (error.response.status === 422) {
+                this.errors = error.response.data.errors || {};
+                }
+            });
+            },
     }
 }
 </script>
