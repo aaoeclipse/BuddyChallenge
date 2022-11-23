@@ -131,4 +131,14 @@ class ChallengeController extends Controller
 
         return redirect()->route('home')->with('success', 'Challege deleted successfully');
     }
+
+    public function get_pending_challenges()
+    {
+        $user = Auth::user();
+        $challenges = $user->challenges;
+
+        return $challenges->filter(function ($challenge) {
+            return ! $challenge->pivot->accepted;
+        })->values();
+    }
 }

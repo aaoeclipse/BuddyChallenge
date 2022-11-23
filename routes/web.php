@@ -21,3 +21,5 @@ Route::resource('routine', App\Http\Controllers\RoutineController::class)->middl
 
 Route::get('/inviting_friends', [App\Http\Controllers\InviteFriends::class, 'index'])->middleware('auth')->name('inviting_friends');
 Route::post('/inviting_friends/submit', [App\Http\Controllers\InviteFriends::class, 'store'])->middleware('auth');
+
+Route::get('/pending_challenge', [App\Http\Controllers\ChallengeController::class, 'get_pending_challenges'])->middleware('auth')->name('pending_challenge');
