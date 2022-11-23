@@ -6,6 +6,7 @@ use App\Events\ChallengeProcess;
 use App\Models\Challenge;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ChallengeController extends Controller
 {
@@ -55,7 +56,7 @@ class ChallengeController extends Controller
         ]);
 
         // The owner must also have to be in the pivot table
-        ChallengeProcess::dispatch($challenge, Auth::id());
+        ChallengeProcess::dispatch($challenge->id, Auth::id(), true);
 
         return redirect()->route('inviting_friends', ['id' => $challenge->id]);
     }
@@ -69,7 +70,7 @@ class ChallengeController extends Controller
     public function show($id)
     {
         $user = Auth::user();
-        $challenge = $user->own_challenges->find($id);
+        $challenge = $user->challenges->find($id);
 
         return view('challenges/challenge_detail', ['challenge' => $challenge]);
     }
@@ -85,7 +86,7 @@ class ChallengeController extends Controller
         $user = Auth::user();
         $challenge = $user->own_challenges->find($id);
 
-        return view('challenges/challenge_detail', ['challenge' => $challenge]);
+        return view('challenges/challenge_modify', ['challenge' => $challenge]);
     }
 
     /**
@@ -130,5 +131,26 @@ class ChallengeController extends Controller
         }
 
         return redirect()->route('home')->with('success', 'Challege deleted successfully');
+    }
+
+    public function get_pending_challenges()
+    {
+        $user = Auth::user();
+        $challenges = $user->challenges;
+
+        return $challenges->filter(function ($challenge) {
+            return ! $challenge->pivot->accepted;
+        })->values();
+    }
+
+    public function respond_challenge(Request $request)
+    {
+        $user_id = Auth::id();
+        $data = json_decode($request->getContent());
+        if ($data->accept === true) {
+            DB::update('update challenge_user set accepted = true where user_id = ? and challenge_id = ?', [$user_id, $data->id]);
+        } else {
+            DB::table('challenge_user')->whereRaw('user_id = ? and challenge_id = ?', [$user_id, $data->id])->delete();
+        }
     }
 }

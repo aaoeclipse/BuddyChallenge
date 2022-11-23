@@ -17,12 +17,12 @@ class ChallengeProcess
      *
      * @return void
      */
-    public function __construct(Challenge $challenge, int $user_id)
+    public function __construct(int $challenge_id, int $user_id, bool $accepted)
     {
         ChallengeUser::create([
             'user_id' => $user_id,
-            'challenge_id' => $challenge->id,
-            'accepted' => true, // must be true since he created the challenge
+            'challenge_id' => $challenge_id,
+            'accepted' => $accepted, // must be true since if he created the challenge
         ]);
     }
 }

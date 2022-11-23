@@ -9,6 +9,8 @@ class ChallengeUser extends Pivot
 {
     use HasFactory;
 
+    // public $timestamps = false;
+
     protected $fillable = [
         'user_id',
         'challenge_id',

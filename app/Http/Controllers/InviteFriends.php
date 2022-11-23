@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ChallengeProcess;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,6 +23,12 @@ class InviteFriends extends Controller
     public function store(Request $request)
     {
         $data = json_decode($request->getContent());
-        redirect()->route('challenge.show', ['challenge' => $data->id]);
+        // dd($data->emails);
+        foreach ($data->emails as $req) {
+            $tmp_user = User::where('email', $req->email)->firstOrFail();
+            ChallengeProcess::dispatch($data->id, $tmp_user->id, false);
+        }
+
+        return redirect()->route('challenge.show', ['challenge' => $data->id]);
     }
 }

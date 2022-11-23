@@ -7,6 +7,11 @@
             <div class="col-md-16 flex flex-col gap-4">
                 <div class="card">
                     <div class="card-body">
+                        <pending-challenges></pending-challenges>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
                         <x-own-components title="Current Challenges" :challenges='$user->challenges' admin='false'></x-own-components>
                     </div>
                 </div>

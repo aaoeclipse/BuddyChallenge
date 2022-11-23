@@ -28,7 +28,7 @@ class RoutineController extends Controller
      */
     public function create()
     {
-        //
+        return view('routines/create_routine');
     }
 
     /**
