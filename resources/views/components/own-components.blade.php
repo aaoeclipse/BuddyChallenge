@@ -5,8 +5,11 @@
         @foreach ($challenges as $challenge)
             <div class="grid grid-cols-4 items-center 
 h-16 pl-4 border ">
+                <a href="{{ route('challenge.edit', ['challenge' => $challenge]) }}"
+                    class="col-span-2 text-lg cursor-pointer {{ $admin == 'true' ? '' : 'hidden' }}">
+                    {{ $challenge->title }}</a>
                 <a href="{{ route('challenge.show', ['challenge' => $challenge]) }}"
-                    class="col-span-2 text-lg  cursor-pointer ">
+                    class="col-span-2 text-lg cursor-pointer {{ $admin == 'false' ? '' : 'hidden' }}">
                     {{ $challenge->title }}
                 </a>
                 <div class="col-span-1"></div>

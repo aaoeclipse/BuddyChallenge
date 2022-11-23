@@ -29,9 +29,12 @@ export default {
     },
     mounted() {
         axios.get('/pending_challenge').then((results) => {
+            console.log(results.data)
             if (results.data.length > 0) {
                 this.challenges = results.data;
                 this.pChallenges = true;
+            } else {
+                this.pChallenges = false;
             }
         })
     },
@@ -41,10 +44,11 @@ export default {
                 axios.post('/respond_challenge/', { id: challengeId, accept: true })
                     .then(async (response) => {
                         axios.get('/pending_challenge').then((results) => {
-                            console.log(results.data)
                             if (results.data.length > 0) {
                                 this.challenges = results.data;
                                 this.pChallenges = true;
+                            } else {
+                                this.pChallenges = false;
                             }
                         })
                     }).catch(error => {
@@ -60,6 +64,8 @@ export default {
                             if (results.data.length > 0) {
                                 this.challenges = results.data;
                                 this.pChallenges = true;
+                            } else {
+                                this.pChallenges = false;
                             }
                         })
                     }).catch(error => {

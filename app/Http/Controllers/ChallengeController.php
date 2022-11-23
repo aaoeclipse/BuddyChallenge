@@ -70,7 +70,7 @@ class ChallengeController extends Controller
     public function show($id)
     {
         $user = Auth::user();
-        $challenge = $user->own_challenges->find($id);
+        $challenge = $user->challenges->find($id);
 
         return view('challenges/challenge_detail', ['challenge' => $challenge]);
     }
@@ -86,7 +86,7 @@ class ChallengeController extends Controller
         $user = Auth::user();
         $challenge = $user->own_challenges->find($id);
 
-        return view('challenges/challenge_detail', ['challenge' => $challenge]);
+        return view('challenges/challenge_modify', ['challenge' => $challenge]);
     }
 
     /**

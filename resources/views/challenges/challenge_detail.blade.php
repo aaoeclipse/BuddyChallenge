@@ -1,18 +1,24 @@
 @extends('layouts.app')
 @section('content')
-    <div class="flex w-screen justify-center">
-        <form method="PUT" action={{ route('challenge.edit', $challenge->id) }} class="flex flex-col w-[80%] gap-2">
-            @csrf
-            <label for="title">Title</label>
-            <input type="text" name="title" id="title" required placeholder="{{ $challenge->title }}">
-            <label for="description">Description</label>
-            <textarea name="description" id="description" cols="10" rows="2" placeholder="{{ $challenge->description }}"></textarea>
-            <label>Starting date:</label>
-            <input type="date" name="starting_date" id="starting_date" placeholder="{{ $challenge->starting_date }}"
-                required>
-            <label for="ending_date">Ending date</label>
-            <input type="date" name="ending_date" id="ending_date" placeholder="{{ $challenge->ending_date }}" required>
-            <button type="submit" class="text-xl font-bold bg-blue-700 p-2 text-white rounded mt-4">+ Challenge</button>
-        </form>
+    <div class="container">
+        <div class="card flex flex-col justify-center items-center gap-3">
+            <h1 class="text-3xl mt-10">{{ $challenge->title }}</h1>
+            <p class="text-xl">{{ $challenge->description }}</p>
+            <span class="text-gray-500">Date: {{ $challenge->starting_date }} - {{ $challenge->ending_date }}</span>
+            <div class="flex w-full outline my-10"></div>
+            <h1 class="text-3xl pb-5">Participating</h1>
+
+            @foreach ($challenge->users as $user)
+                <div
+                    class="flex flex-col 
+            rounded bg-slate-100 w-[50%] justify-center items-center
+            gap-2 mb-5 py-3">
+                    <span class="text-2xl">{{ $user->name }}</span>
+                    <span class="text-md">{{ $user->email }}</span>
+                </div>
+            @endforeach
+
+        </div>
+    </div>
     </div>
 @endsection
