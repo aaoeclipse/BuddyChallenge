@@ -23,3 +23,4 @@ Route::get('/inviting_friends', [App\Http\Controllers\InviteFriends::class, 'ind
 Route::post('/inviting_friends/submit', [App\Http\Controllers\InviteFriends::class, 'store'])->middleware('auth');
 
 Route::get('/pending_challenge', [App\Http\Controllers\ChallengeController::class, 'get_pending_challenges'])->middleware('auth')->name('pending_challenge');
+Route::post('/respond_challenge', [App\Http\Controllers\ChallengeController::class, 'respond_challenge'])->middleware('auth')->name('accept_reject_challenge');

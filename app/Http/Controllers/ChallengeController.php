@@ -6,6 +6,7 @@ use App\Events\ChallengeProcess;
 use App\Models\Challenge;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ChallengeController extends Controller
 {
@@ -140,5 +141,16 @@ class ChallengeController extends Controller
         return $challenges->filter(function ($challenge) {
             return ! $challenge->pivot->accepted;
         })->values();
+    }
+
+    public function respond_challenge(Request $request)
+    {
+        $user_id = Auth::id();
+        $data = json_decode($request->getContent());
+        if ($data->accept === true) {
+            DB::update('update challenge_user set accepted = true where user_id = ? and challenge_id = ?', [$user_id, $data->id]);
+        } else {
+            DB::table('challenge_user')->whereRaw('user_id = ? and challenge_id = ?', [$user_id, $data->id])->delete();
+        }
     }
 }

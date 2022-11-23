@@ -30,6 +30,13 @@ class DatabaseSeeder extends Seeder
             ]), 'owner')
             ->create();
 
+        User::factory()->state([
+            'name' => 'Santiago Paiz',
+            'email' => 'santiago.paiz+2@gmail.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$XFuN.Xu71tK4fDhzwWoIT.tO71JaoawXcSXe5VyO6KAvigzAsEMRi',
+            'remember_token' => null,
+        ])->create();
         $user = User::where(['email' => 'santiago.paiz@gmail.com'])->first();
 
         ChallengeUser::factory()->state([
