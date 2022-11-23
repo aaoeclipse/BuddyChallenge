@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\Challenge;
 use App\Models\ChallengeUser;
 use App\Models\User;
+use App\Models\Workout;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -45,5 +46,15 @@ class DatabaseSeeder extends Seeder
         ])->create();
 
         ChallengeUser::factory(10)->create();
+
+        Workout::factory()->state([
+            'owner_id' => $user->id,
+        ])->create();
+        Workout::factory()->state([
+            'owner_id' => $user->id,
+        ])->create();
+        Workout::factory()->state([
+            'owner_id' => $user->id,
+        ])->create();
     }
 }

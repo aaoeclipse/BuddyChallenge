@@ -124,8 +124,11 @@ class ChallengeController extends Controller
     {
         $user = Auth::user();
         $challenge = $user->own_challenges->find($id);
+
         if ($challenge) {
             $challenge->delete();
         }
+
+        return redirect()->route('home')->with('success', 'Challege deleted successfully');
     }
 }

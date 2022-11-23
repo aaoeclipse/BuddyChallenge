@@ -44,7 +44,7 @@ class User extends Authenticatable
 
     public function workouts()
     {
-        return $this->hasMany(Workout::class);
+        return $this->hasMany(Workout::class, 'owner_id');
     }
 
     public function own_challenges()
@@ -55,5 +55,10 @@ class User extends Authenticatable
     public function challenges()
     {
         return $this->belongsToMany(Challenge::class)->withPivot(['points', 'accepted']);
+    }
+
+    public function routines()
+    {
+        return $this->hasMany(Routine::class, 'user_id');
     }
 }

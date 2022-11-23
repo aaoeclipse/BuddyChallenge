@@ -20,6 +20,7 @@ class InviteFriends extends Controller
 
     public function store(Request $request)
     {
-        dd($request);
+        $data = json_decode($request->getContent());
+        redirect()->route('challenge.show', ['challenge' => $data->id]);
     }
 }

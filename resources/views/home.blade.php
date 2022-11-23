@@ -14,7 +14,7 @@
                     <div class="card-body flex flex-col">
                         <x-own-components title="Own Challenges" :challenges='$user->own_challenges' admin='true'></x-own-components>
                         <a href="{{ route('challenge.create') }}" class="btn btn-primary mt-3">+
-                            Challenge</a>
+                            Challenge </a>
                     </div>
                 </div>
             </div>

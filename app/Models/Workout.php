@@ -11,7 +11,7 @@ class Workout extends Model
 
     protected $fillable = [
         'name',
-        'num_sets',
+        'num_set',
         'repetitions',
         'type',
         'owner_id',
@@ -19,6 +19,11 @@ class Workout extends Model
 
     public function owner()
     {
-        $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'owner_id', 'id');
+    }
+
+    public function routines()
+    {
+        return $this->hasMany(Routine::class, 'workout_id');
     }
 }

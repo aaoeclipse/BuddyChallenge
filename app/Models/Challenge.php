@@ -26,4 +26,9 @@ class Challenge extends Model
     {
         return $this->belongsToMany(User::class)->withPivot(['points', 'accepted']);
     }
+
+    public function routines()
+    {
+        return $this->hasMany(Routine::class, 'challenge_id');
+    }
 }
