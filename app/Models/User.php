@@ -56,4 +56,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Challenge::class)->withPivot(['points', 'accepted']);
     }
+
+    public function routines()
+    {
+        return $this->hasMany(Routine::class, 'user_id');
+    }
 }

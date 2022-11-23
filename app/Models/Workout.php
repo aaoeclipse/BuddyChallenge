@@ -21,4 +21,9 @@ class Workout extends Model
     {
         return $this->belongsTo(User::class, 'owner_id', 'id');
     }
+
+    public function routines()
+    {
+        return $this->hasMany(Routine::class, 'workout_id');
+    }
 }
