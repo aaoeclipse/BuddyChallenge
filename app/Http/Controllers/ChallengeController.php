@@ -55,7 +55,7 @@ class ChallengeController extends Controller
         ]);
 
         // The owner must also have to be in the pivot table
-        ChallengeProcess::dispatch($challenge, Auth::id());
+        ChallengeProcess::dispatch($challenge->id, Auth::id(), true);
 
         return redirect()->route('inviting_friends', ['id' => $challenge->id]);
     }
