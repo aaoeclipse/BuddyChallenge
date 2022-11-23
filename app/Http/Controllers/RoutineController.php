@@ -17,7 +17,8 @@ class RoutineController extends Controller
     {
         $user = Auth::user();
         $routines = $user->routines;
-        view('routines/routines', ['routines' => $routines]);
+
+        return view('routines/routines', ['routines' => $routines]);
     }
 
     /**
@@ -65,9 +66,9 @@ class RoutineController extends Controller
     public function show($id)
     {
         $user = Auth::user();
-        $routine = $user->routines->find('id', $id);
+        $routine = $user->routines->find($id);
 
-        view('routines/routine_detail', ['routine' => $routine]);
+        return view('routines/routine_detail', ['routine' => $routine]);
     }
 
     /**
@@ -90,7 +91,17 @@ class RoutineController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'day_of_week' => 'required|integer',
+        ]);
+
+        $routine = Auth::user()->routines->find($id);
+
+        $routine->day_of_week = $request->input('day_of_week');
+
+        $routine->save();
+
+        return redirect()->route('routine.show', ['routine' => $routine->id]);
     }
 
     /**
@@ -101,6 +112,10 @@ class RoutineController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = Auth::user();
+        $routine = $user->routines->find($id);
+        if ($routine) {
+            $routine->delete();
+        }
     }
 }

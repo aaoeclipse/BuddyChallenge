@@ -26,34 +26,16 @@ class RoutineTest extends TestCase
         $this->workout = $this->user->workouts->first();
     }
 
-    public function test_get_all_routines()
-    {
-        $response = $this->actingAs($this->user)->get('/routine');
-
-        $response->assertSee('Routines');
-    }
-
-    public function test_get_specific_routines()
-    {
-        $routine = $this->user->routines->first();
-
-        $response = $this->actingAs($this->user)->get('/routines/'.$routine['id']);
-
-        $response->assertStatus(200);
-    }
-
     public function test_user_create_routine()
     {
         $routine = new Routine();
 
-        $routine->user_id = $this->user->id;
         $routine->workout_id = $this->workout->id;
         $routine->challenge_id = $this->challenge->id;
         $routine->day_of_week = 1;
 
         $response = $this->actingAs($this->user)->post('/routine', [
-            'workout_id' => $routine->user_id,
-            'user_id' => $routine->workout_id,
+            'workout_id' => $routine->workout_id,
             'challenge_id' => $routine->challenge_id,
             'day_of_week' => $routine->day_of_week,
 
@@ -62,28 +44,67 @@ class RoutineTest extends TestCase
         $response->assertStatus(302);
         // Make sure the routine was created in the db
         $this->assertDatabaseHas('routines', [
-            'workout_id' => $routine->user_id,
-            'user_id' => $routine->workout_id,
+            'workout_id' => $routine->workout_id,
+            'user_id' => $this->user->id,
             'challenge_id' => $routine->challenge_id,
             'day_of_week' => $routine->day_of_week,
         ]);
     }
 
+    public function test_get_all_routines()
+    {
+        $response = $this->actingAs($this->user)->get('/routine/');
+
+        $response->assertSee('id');
+    }
+
+    public function test_get_specific_routines()
+    {
+        $routine = new Routine();
+        $routine->user_id = $this->user->id;
+        $routine->workout_id = $this->workout->id;
+        $routine->challenge_id = $this->challenge->id;
+        $routine->day_of_week = 1;
+        $routine->save();
+
+        $routine = $this->user->routines->first();
+
+        $response = $this->actingAs($this->user)->get('/routine/'.$routine['id']);
+
+        $response->assertStatus(200);
+    }
+
     public function test_update_routine()
     {
-        $routine = $this->user->own_routines->first();
+        $routine = new Routine();
+        $routine->user_id = $this->user->id;
+        $routine->workout_id = $this->workout->id;
+        $routine->challenge_id = $this->challenge->id;
+        $routine->day_of_week = 1;
+        $routine->save();
+
+        $routine = $this->user->routines->first();
         $response = $this->actingAs($this->user)->put('/routine/'.$routine->id, [
-            'workout_id' => $routine->workout_id,
+            'day_of_week' => 2,
+        ]);
+        $this->assertDatabaseHas('routines', [
             'user_id' => $routine->user_id,
+            'workout_id' => $routine->workout_id,
             'challenge_id' => $routine->challenge_id,
             'day_of_week' => 2,
         ]);
-        $this->assertDatabaseHas('routines', ['user_id' => $routine->user_id, 'workout_id' => $routine->workout_id, 'challenge_id' => $routine->challenge_id, 'day_of_week' => 2]);
     }
 
     public function test_delete_routine()
     {
-        $routine = $this->user->own_routines->first();
+        $routine = new Routine();
+        $routine->user_id = $this->user->id;
+        $routine->workout_id = $this->workout->id;
+        $routine->challenge_id = $this->challenge->id;
+        $routine->day_of_week = 1;
+        $routine->save();
+
+        $routine = $this->user->routines->first();
         $this->assertDatabaseHas('routines', ['id' => $routine->id]);
 
         $this->actingAs($this->user)->delete('/routine/'.$routine['id']);
