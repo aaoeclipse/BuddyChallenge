@@ -8,6 +8,8 @@
                 @foreach ($routines as $routine)
                     <li>
                         <span>id: {{ $routine->id }}</span>
+                        <span>challenge: {{ $routine->challenge_id }}</span>
+                        <span>day_of_week: {{ $routine->day_of_week }}</span>
                     </li>
                 @endforeach
             </ul>

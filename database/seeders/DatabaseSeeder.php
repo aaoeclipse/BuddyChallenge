@@ -31,8 +31,8 @@ class DatabaseSeeder extends Seeder
             ->create();
 
         User::factory()->state([
-            'name' => 'Santiago Paiz',
-            'email' => 'santiago.paiz+2@gmail.com',
+            'name' => 'Alejandra Chavez',
+            'email' => 'alechavez@gmail.com',
             'email_verified_at' => now(),
             'password' => '$2y$10$XFuN.Xu71tK4fDhzwWoIT.tO71JaoawXcSXe5VyO6KAvigzAsEMRi',
             'remember_token' => null,
