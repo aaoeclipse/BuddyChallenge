@@ -16,7 +16,7 @@ class WorkoutTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        // $this->seed();
+        $this->seed();
         $this->user = User::where('email', 'santiago.paiz@gmail.com')->first();
     }
 

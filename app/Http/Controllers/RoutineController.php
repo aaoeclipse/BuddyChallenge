@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Routine;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RoutineController extends Controller
 {
@@ -13,7 +15,9 @@ class RoutineController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        $routines = $user->routines;
+        view('routines/routines', ['routines' => $routines]);
     }
 
     /**
@@ -34,7 +38,22 @@ class RoutineController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'workout_id' => 'required',
+            'challenge_id' => 'required',
+            'day_of_week' => 'required|integer',
+        ]);
+
+        // TODO: Verify that the user has access to both workout and challenge.
+
+        $routine = Routine::create([
+            'user_id' => Auth::id(),
+            'workout_id' => $request->input('workout_id'),
+            'challenge_id' => $request->input('challenge_id'),
+            'day_of_week' => $request->input('day_of_week'),
+        ]);
+
+        return redirect()->route('routine.show', ['routine' => $routine->id]);
     }
 
     /**
@@ -45,7 +64,10 @@ class RoutineController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = Auth::user();
+        $routine = $user->routines->find('id', $id);
+
+        view('routines/routine_detail', ['routine' => $routine]);
     }
 
     /**

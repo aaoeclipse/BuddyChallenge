@@ -4,10 +4,13 @@ namespace Tests\Feature;
 
 use App\Models\Routine;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class RoutineTest extends TestCase
 {
+    use RefreshDatabase;
+
     private $user;
 
     private $workout;
@@ -25,14 +28,14 @@ class RoutineTest extends TestCase
 
     public function test_get_all_routines()
     {
-        $response = $this->actingAs($this->user)->get('/routines');
+        $response = $this->actingAs($this->user)->get('/routine');
 
         $response->assertSee('Routines');
     }
 
     public function test_get_specific_routines()
     {
-        $routine = $this->user->own_routines->first();
+        $routine = $this->user->routines->first();
 
         $response = $this->actingAs($this->user)->get('/routines/'.$routine['id']);
 
@@ -78,7 +81,7 @@ class RoutineTest extends TestCase
         $this->assertDatabaseHas('routines', ['user_id' => $routine->user_id, 'workout_id' => $routine->workout_id, 'challenge_id' => $routine->challenge_id, 'day_of_week' => 2]);
     }
 
-    public function test_delete_challenge()
+    public function test_delete_routine()
     {
         $routine = $this->user->own_routines->first();
         $this->assertDatabaseHas('routines', ['id' => $routine->id]);

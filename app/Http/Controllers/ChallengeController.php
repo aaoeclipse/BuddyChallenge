@@ -122,10 +122,14 @@ class ChallengeController extends Controller
      */
     public function destroy($id)
     {
+        dd($id);
         $user = Auth::user();
         $challenge = $user->own_challenges->find($id);
+
         if ($challenge) {
             $challenge->delete();
         }
+
+        return redirect()->route('home')->with('success', 'Challege deleted successfully');
     }
 }
