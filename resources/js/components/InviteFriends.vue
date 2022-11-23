@@ -47,8 +47,9 @@ export default {
         submit() {
             this.errors = {};
             
-            axios.post('/inviting_friends/submit', {id: this.data, emails: this.friends_to_invite}).then(response => {
-                window.location.href = `/challenge/${this.data}`;
+            axios.post('/inviting_friends/submit', {id: this.data, emails: this.friends_to_invite})
+                .then(response => {
+                    window.location.href = `/challenge/${this.data}`;
             }).catch(error => {
                 if (error.response.status === 422) {
                 this.errors = error.response.data.errors || {};
