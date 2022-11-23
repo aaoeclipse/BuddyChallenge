@@ -4,16 +4,19 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use App\Models\Workout;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class WorkoutTest extends TestCase
 {
+    use RefreshDatabase;
+
     private $user;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->seed();
+        // $this->seed();
         $this->user = User::where('email', 'santiago.paiz@gmail.com')->first();
     }
 
@@ -39,22 +42,24 @@ class WorkoutTest extends TestCase
 
         $workout->owner_id = $this->user->id;
         $workout->name = 'new Workout';
-        $workout->num_sets = 3;
+        $workout->num_set = 3;
         $workout->repetitions = 10;
         $workout->type = 'strength';
 
         $response = $this->actingAs($this->user)->post('/workout', [
             'name' => $workout->name,
-            'num_sets' => $workout->num_sets,
+            'num_set' => $workout->num_set,
             'repetitions' => $workout->repetitions,
             'type' => $workout->type,
             'owner_id' => $workout->owner_id,
         ]);
-        // Make sure it redirects
+        // Check status code success
         $response->assertStatus(302);
         // Make sure the workout was created in the db
         $this->assertDatabaseHas('workouts', [
-            'id' => $response->id,
+            'owner_id' => $workout->owner_id,
+            'name' => $workout->name,
+            'num_set' => $workout->num_set,
         ]);
     }
 
@@ -63,13 +68,19 @@ class WorkoutTest extends TestCase
         $workout = $this->user->workouts->first();
         $response = $this->actingAs($this->user)->put('/workout/'.$workout->id, [
             'name' => 'new name!!',
+            'num_set' => $workout->num_set,
+            'repetitions' => $workout->repetitions,
+            'type' => $workout->type,
         ]);
-        $this->assertDatabaseHas('workouts', ['id' => $workout->id, 'name' => 'new name!!']);
+        $this->assertDatabaseHas('workouts', [
+            'id' => $workout->id,
+            'name' => 'new name!!',
+        ]);
     }
 
     public function test_delete_challenge()
     {
-        $workout = $this->user->own_workouts->first();
+        $workout = $this->user->workouts->first();
         $this->assertDatabaseHas('workouts', ['id' => $workout->id]);
 
         $this->actingAs($this->user)->delete('/workout/'.$workout['id']);

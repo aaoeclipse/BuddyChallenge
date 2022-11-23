@@ -5,9 +5,10 @@
         @foreach ($challenges as $challenge)
             <div class="grid grid-cols-4 items-center 
 h-16 pl-4 border ">
-                <h2 class="col-span-2 text-lg  cursor-pointer ">
+                <a href="{{ route('challenge.show', ['challenge' => $challenge]) }}"
+                    class="col-span-2 text-lg  cursor-pointer ">
                     {{ $challenge->title }}
-                </h2>
+                </a>
                 <div class="col-span-1"></div>
                 <div class="col-span-1 flex justify-center">
 
