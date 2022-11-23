@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Challenge;
+use App\Models\User;
+use App\Models\Workout;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,12 +19,11 @@ return new class extends Migration
         Schema::create('routines', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->unsignedBigInteger('user_id')->unsigned()->index();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedBigInteger('challenge_id')->unsigned()->index();
-            $table->foreign('challenge_id')->references('id')->on('challenges')->onDelete('cascade');
-            $table->unsignedBigInteger('workout_id')->unsigned()->index();
-            $table->foreign('workout_id')->references('id')->on('workouts')->onDelete('cascade');
+            $table->foreignIdFor(User::class, 'user_id');
+            $table->foreignIdFor(Challenge::class, 'challenge_id');
+            $table->foreignIdFor(Workout::class, 'workout_id');
+
+            $table->integer('day_of_week');
         });
     }
 
