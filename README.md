@@ -12,6 +12,20 @@ of a point system for both challengers.
 ## Mission Statement
 To connect people and their relationship with themselves to become better version of themselves.
 
+## Requirements
+- php >= 8.1
+- copmoser >=  2.4
+- database of choice
+
+## Instalation
+```bash
+$ git clone https://github.com/aaoeclipse/BuddyChallenge
+$ composer install
+$ npm instal
+$ php artisan key:generate
+```
+Make sure you have the database set up and add the credentials to the .env file
+
 ## Roadmap
 
 - Create challenge
