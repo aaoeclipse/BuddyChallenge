@@ -19,8 +19,12 @@ import ExampleComponent from "./components/ExampleComponent.vue";
 import InviteFriends from "./components/InviteFriends.vue";
 import PendingChallenges from "./components/PendingChallenges.vue";
 import Routines from "./components/Routines.vue";
+import LandingPage from "./components/LandingPage.vue";
+import Dashboard from "./components/Dashboard.vue";
 
 app.component("example-component", ExampleComponent);
+app.component("landing-page", LandingPage);
+app.component("dashboard-page", Dashboard);
 app.component("invite-friends", InviteFriends);
 app.component("pending-challenges", PendingChallenges);
 app.component("routines", Routines);
