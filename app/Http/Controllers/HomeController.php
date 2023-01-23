@@ -25,8 +25,9 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $response = Http::get('https://zenquotes.io/api/today');
+        $response = Http::get('https://zenquotes.io/api/quotes');
+        $response = $response->json()[rand(0, count($response->json()))];
 
-        return view('home', ['user' => $user, 'quote' => $response[0]]);
+        return view('home', ['user' => $user, 'quote' => $response]);
     }
 }
