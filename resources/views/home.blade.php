@@ -22,10 +22,10 @@
                         Challenge </a>
                 </div>
             </div>
-            <div class="relative">
+            <div class="flex flex-col md:flex-row bg-orange-800  md:w-[80%] rounded overflow-hidden self-center">
                 <img class="" src="https://placebear.com/g/200/300" alt="bear">
-                <div class="absolute top-0 left-0 text-xl text-white font-mono font-extrabold w-full h-full ">
-                    <p class="">{{$quote['q']}}</p>
+                <div class="text-xl text-white flex flex-col items-center justify-center">
+                    <p class="m-4">{{$quote['q']}}</p>
                     <span class="font-serif">{{$quote['a']}}</span>
                 </div>
             </div>
