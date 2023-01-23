@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -24,7 +25,9 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $response = Http::get('https://zenquotes.io/api/quotes');
+        $response = $response->json()[rand(0, count($response->json()))];
 
-        return view('home', ['user' => $user]);
+        return view('home', ['user' => $user, 'quote' => $response]);
     }
 }
