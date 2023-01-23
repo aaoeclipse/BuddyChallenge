@@ -22,6 +22,7 @@
                         Challenge </a>
                 </div>
             </div>
+            @livewire('pending-challenge-search')
             <div class="flex flex-col md:flex-row bg-orange-800  md:w-[80%] rounded overflow-hidden self-center">
                 <img class="" src="https://placebear.com/g/200/300" alt="bear">
                 <div class="text-xl text-white flex flex-col items-center justify-center">
