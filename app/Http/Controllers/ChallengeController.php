@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\DB;
 
 class ChallengeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -139,7 +143,7 @@ class ChallengeController extends Controller
         $challenges = $user->challenges;
 
         return $challenges->filter(function ($challenge) {
-            return ! $challenge->pivot->accepted;
+            return !$challenge->pivot->accepted;
         })->values();
     }
 
