@@ -28,8 +28,15 @@
             </div>
 
             <ul class="flex gap-x-3 items-center ">
-                <li class="h-full">Home</li>
-
+                <a href="{{ url('/') }}" class="text-lg text-gray-100 ">Home</a>
+                @if (Route::has('login'))
+                @auth
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit">Logout</button>
+                </form>
+                @endauth
+                @endif
             </ul>
         </nav>
         {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">

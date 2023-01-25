@@ -18,4 +18,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('challenge', App\Http\Controllers\ChallengeController::class)->middleware('auth');
+Route::apiResource('/challenge', App\Http\Controllers\ChallengeController::class)->middleware('auth:sanctum');
